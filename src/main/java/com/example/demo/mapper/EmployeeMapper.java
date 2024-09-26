@@ -12,6 +12,7 @@ public class EmployeeMapper {
         );
     }
 
+    //Convert EmployeeDTO to Employee, where Employee is the needed format to save in the database
     public static Employee mapToEmployee(EmployeeDTO employeeDTO) {
         return new Employee(
                 employeeDTO.getId(),
