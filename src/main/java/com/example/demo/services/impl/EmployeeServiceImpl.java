@@ -9,6 +9,9 @@ import com.example.demo.services.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
@@ -26,5 +29,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee=employeeRepository.findById(id)
                 .orElseThrow(()-> new ResourseNotFoundException("Employee not found"));
         return EmployeeMapper.mapToEmployeeDto(employee);
+    }
+
+    @Override
+    public List<EmployeeDTO> getAllEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+        return employees.stream().map((emp)-> EmployeeMapper.mapToEmployeeDto(emp)).collect(Collectors.toList());
     }
 }
